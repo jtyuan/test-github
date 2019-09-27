@@ -1,0 +1,86 @@
+%!TEX root = m392c_EHT_notes.tex
+Just as coefficient systems for Bredon cohomology were $\Ab$-valued presheaves on the orbit category, Mackey
+functors are $\Ab$-valued presheaves on the Burnside category. We'll begin discussing this in this section, provide
+another deifnition for the Burnside category which is more hands-on, and provide an example.\index{Bredon
+cohomology}\index{presheaf!on the orbit category}\index{presheaf!on the Burnside category}\index{Mackey functor}
+
+Let $\fC$ be a small category with finite limits and finite coproducts. In $\fC$, consider the diagram
+\[\xymatrix{
+	X\ar[r]^{\vp_1}\ar[d] & Y\ar[d] & Z\ar[d]\ar[l]_{\vp_2}\\
+	X'\ar[r] & X'\amalg Z' & Z'.\ar[l]
+}\]
+Both of these squares are pullbacks iff $Y\cong X\amalg Z$ with $\vp_1$ and $\vp_2$ the universal maps. This tells
+us something about how coproducts interact with pullbacks.
+\begin{defn}
+Let $\Span(\fC)$ be the category whose objects are those of $\fC$ and whose morphisms $\Hom_{\Span(\fC)}(X,Y)$ are
+equivalences classes of diagrams\index{Span(C)@$\Span(\fC)$|textit}
+\begin{equation}
+\label{span1mor}
+\gathxy[@dr]{
+	A\ar[r]\ar[d] & Y,\\
+	Z
+}
+\end{equation}
+where $X\gets A\to Y$ and $X\gets A'\to Y$ are equivalent if there's an isomorphism $h\colon A\congto A'$ such that
+the following diagram commutes.
+\begin{equation}
+\label{span2mor}
+\gathxy[@R=0.4cm]{
+	& A\ar[dr]\ar[dl]\ar[dd]^h\\
+	X && Y\\
+	& A'.\ar[ul]\ar[ur]
+}
+\end{equation}
+Composition is defined by pullback of spans
+\[\xymatrix@dr{
+	A\times_Y A'\ar[r]\ar[d] & A'\ar[r]\ar[d] & Z.\\
+	A\ar[r]\ar[d] & Y\\
+	X
+}\]
+\end{defn}
+\begin{rem}
+If your category number\footnote{Freed~\cite{CSRemarks} defines the \footterm{category number} of a mathematician
+to be the largest $n$ such that he or she can think hard about $n$-categories for half an hour without getting a
+headache.} is at least $2$, you can construct $\Span(\fC)$ as a $2$-category, where the $1$-morphisms between $X$
+and $Y$ are spans~\eqref{span1mor}, and the $2$-morphisms between $X\gets A\to Y$ and $X\gets A'\to Y$ are the
+diagrams~\eqref{span2mor}.
+\end{rem}
+There's a sum on $\Hom_{\Span(\fC)}(X,Y)$ given by the coproduct of $X\gets A\to Y$ and $X\gets A'\to Y$, which
+define a map $X\gets A\amalg A'\to Y$. You might worry whether this is compatible with composition, which is why
+we took the morphisms to be equivalence classes of spans.
+
+This sum does not make $\Span(\fC)$ into an additive category, so let $\Span^+(\fC)$ denote the
+\term{preadditive completion} of $\Span(\fC)$, i.e.\ $\Hom_{\Span^+(\fC)}(X,Y)$ is the Grothendieck group of
+$\Hom_{\Span(\fC)}(X,Y)$.
+\begin{ex}
+Show that the category $G\Set^{\mathrm{fin}}$ of finite $G$-sets and $G$-equivariant maps has all finite limits and
+coproducts, so that we may apply the above formalism to it.
+\end{ex}
+\begin{defn}
+\label{burn2}
+The \term{Burnside category} $B_G$ is $\Span^+(G\Set^{\mathrm{fin}})$.
+\end{defn}
+In \cref{burn1}, we defined the Burnside category differently, as the full subcategory of $\Spc^G$ on $\sus G/H_+$;
+these two definitions are equivalent, and the content is that every finite $G$-set is a coproduct of orbits
+$G/K_i$.
+\begin{prop}
+Let $\tilde B_G$ denote the full subcategory of $\Spc^G$ spanned by finite $G$-sets. Then, $B_G$ and $\pi_0\tilde
+B_G$ are equivalent.
+\end{prop}
+\begin{proof}
+The functor in question sends $T\mapsto\sus T_+$ and a span
+\[\xymatrix@dr{
+	Z\ar[r]^\theta\ar[d]_\tau & Y\\
+	X
+}\]
+to $\theta\circ\tr(\tau)$, where $\tr$ is the transfer map. Because the transfer behaves well under composition,
+this is a functor $\Span(G\Set^{\mathrm{fin}})\to\pi_0\tilde B_G$, and therefore uniquely determines the functor
+$B_G\to\pi_0\tilde B_G$. This is essentially surjective (i.e.\ for objects), and we've already computed that it's
+an isomorphism on hom sets.\footnote{\TODO: I think this was tom Dieck splitting, but want to make sure.}
+\end{proof}
+\begin{exm}
+\TODO: carefully construct the Burnside category of $C_2$.
+\end{exm}
+\begin{ex}
+Generalize the above example to $C_p$.
+\end{ex}

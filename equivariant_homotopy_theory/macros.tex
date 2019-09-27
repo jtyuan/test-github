@@ -1,0 +1,186 @@
+% File for macros, shortcuts, etc.
+% Feel free to add your own, but check whether it's in the .cls file if you think
+% I might have added it already.
+
+\coursenum{M392C}
+\coursename{Topics in Algebraic Topology}
+\date{\today}
+
+
+\usepackage{pdfpages}
+\usepackage[charter]{mathdesign}
+\usepackage[T1]{fontenc}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{fadings}
+
+% NOTE: indexing has been turned off for the time being, because it was messing everything up.
+% at some point, I'll take a look and fix it, but that will be a significant undertaking.
+
+% \makeindex
+% uncomment this to see index entries in the text, for ease of debugging
+%\usepackage{showidx}
+
+% \term automatically indexes your definition.
+%	- Use \term* to avoid this behavior
+%	- Use \term[name in index]{name in text} to use a different name in the index (e.g. for plurals)
+%	- Use \synonym{a}{b} to print b, but index as "see a"
+% some of these commands could be improved though. Namely, \term[...] can't go across newlines
+% and \term does not work in footnotes. Use \footterm if you don't need [...]; if you do, you have to use basic
+% indexing primitives
+% See https://tex.stackexchange.com/questions/377058
+% TODO: \term adds spaces. it's completely broken and probably useless.
+% Time to revise everything... I guess...
+\usepackage{suffix}
+% \NewDocumentCommand{\term}{t[}{%
+%   \IfBooleanTF#1{\termauxi]}{\termauxii}%
+% }
+% \NewDocumentCommand\termauxi{vm}{%
+%   \index{#1|textit}%
+%   {\bfseries #2}%
+% }
+% \NewDocumentCommand\termauxii{v}{%
+%   \index{#1|textit}%
+%   {\bfseries\scantokens{#1}}%
+% }
+ \newcommand{\footterm}[1]{{\bfseries #1}\index{#1|textit}}
+% %\newcommand{\term}[2][##1]{{\bfseries #1}\index{#2|textit}}
+\newcommand{\term}[2][]{{\bfseries #2}}
+\WithSuffix\newcommand\term*[1]{{\bfseries #1}}
+\newcommand{\synonym}[2]{{{\bfseries #2}\index{#2|see {#1}}}}
+
+
+\newcommand{\sSet}{\cat{sSet}}
+\DeclareMathOperator{\Map}{Map}
+\DeclareMathOperator{\rank}{rank\,}
+\DeclareMathOperator{\Un}{Un}
+\newcommand{\KU}{\mathit{KU}}
+\newcommand{\isom}{\stackrel\cong\to}
+\DeclareMathOperator{\Ind}{Ind}
+\DeclareMathOperator{\CoInd}{CoInd}
+\newcommand{\Spc}{\cat{Sp}}
+\newcommand{\overwedge}{\mathbin{\overline\wedge}}
+\DeclareMathOperator{\Ev}{Ev}
+\newcommand{\sW}{\mathscr W}
+\DeclareMathOperator{\Ho}{Ho}
+\newcommand{\simeqto}{\stackrel\simeq\to}
+\newcommand{\congto}{\stackrel\cong\to}
+\newcommand{\wI}{\widetilde I}
+\newcommand{\WH}{\mathit{WH}}
+\newcommand{\NH}{\mathit{NH}}
+\newcommand{\sus}{\Sigma^\infty}
+\newcommand{\Span}{\cat{Span}}
+\DeclareMathOperator{\tr}{tr}
+\newcommand{\RO}{\mathrm{RO}}
+\DeclareMathOperator{\Res}{Res}
+\DeclareMathOperator{\Tr}{Tr}
+\newcommand{\fV}{\cat V}
+\newcommand{\rop}{^{\mathrm{op}}} % for "op" of things that aren't categories
+\newcommand{\cotensor}{\mathbin\square}
+\newcommand{\Mac}{\cat{Mac}}
+\newcommand{\Bispan}{\cat{Bispan}}
+\newcommand{\Orb}{\cat{Orb}}
+\newcommand{\THH}{\mathit{THH}}
+\newcommand{\MU}{\mathit{MU}}
+\renewcommand{\MR}{\mathit{MR}}
+\newcommand{\tH}{\widehat H} % TODO too big
+\newcommand{\tEG}{\widetilde{EG}}
+\newcommand{\MO}{\mathit{MO}}
+\DeclareMathOperator{\Tot}{Tot}
+\newcommand{\sk}{\mathrm{sk}}
+\newcommand{\KR}{\mathit{KR}}
+
+% derived functors
+\newcommand{\LD}{\mathbf L}
+\newcommand{\RD}{\mathbf R}
+
+% Kan extensions
+\DeclareMathOperator{\Lan}{Lan}
+\DeclareMathOperator{\Ran}{Ran}
+
+% 2x2 matrices
+\newcommand{\matr}[4]{
+  \begin{bmatrix} #1 & #2 \\ #3 & #4 \end{bmatrix}
+}
+
+% nice arrows
+\newcommand{\morph}{\mathop{\longrightarrow}\limits}
+\newcommand{\twomorph}{\mathop{\Longrightarrow}\limits}
+
+% fancy diagram shortcuts
+
+% pushout/pullback decorations
+\newcommand{\pullback}{\ar@{}[dr]|<<{\mbox{\Large$\lrcorner$}}}
+\newcommand{\pushout}{\ar@<2pt>@{}[ul]|<{\mbox{\Large$\ulcorner$}}}
+
+% \lon = co\colon --- used in the inline version of \adjnctn, just being careful about kerning
+\newcommand*\lon{%
+        \nobreak
+        \mskip6mu plus1mu
+        \mathpunct{}%
+        \nonscript
+        \mkern-\thinmuskip
+        {:}%
+        \mskip2mu
+        \relax
+}
+
+% smart adjunction macro --- displays differently in inline vs display mode
+\newcommand{\adjnctn}[4]{
+  \mathchoice{
+    \xymatrix@1{
+      #1 \ar@<1ex>[r]^-{#3} \ar@{}[r]|-{\bot} & #2 \ar@<1ex>[l]^-{#4}
+    }
+  }{
+    \xymatrix@1@C=2em{
+      \rule[-1ex]{0pt}{3.5ex}
+      #3 \colon #1 \ar@<1ex>[r] \ar@{}[r]|-{\bot} & #2 \lon #4 \ar@<1ex>[l]
+    }
+  }{}{}
+}
+
+% double adjunction
+\newcommand{\dadjnctn}[6][2em]{
+  \xymatrix@1@C=#1{
+    #2 \ar@<2ex>[r]^-{#4} \ar@<-2ex>[r]_-{#6}
+    \ar@{}@<1.2ex>[r]|-{\scriptscriptstyle\bot} \ar@{}@<-1.2ex>[r]|-{\scriptscriptstyle\bot}
+    &
+    #3 \ar[l]|-{#5}
+  }
+}
+
+\theoremstyle{definition}
+\newtheorem{ques}[equation]{Question}
+\newtheorem{cons}[equation]{Construction}
+\newtheorem{beast}[equation]{Bestiary}
+\newtheorem{notdefn}[equation]{``Definition''}
+
+\newtheoremstyle{warning}
+  {5pt}   % ABOVESPACE
+  {5pt}   % BELOWSPACE
+  {\normalfont}  % BODYFONT
+  {0pt}       % INDENT (empty value is the same as 0pt)
+  {\bfseries} % HEADFONT
+  {!}         % HEADPUNCT
+  {5pt plus 1pt minus 1pt} % HEADSPACE
+  {}          % CUSTOM-HEAD-SPEC
+\theoremstyle{warning}
+\newtheorem*{warn}{Warning}
+
+% macros for TODOs. There should probably also be a comment macro
+\newcommand{\TODO}{\textcolor{red}{TODO}}
+\newcommand{\citeme}[1]{[\textcolor{red}{CITE ME}: #1]}
+
+% version info from Github, using gitinfo2 package (see README.md for details)
+\newcommand{\versioninfo}{
+	\ifnum\pdfstrcmp{\gitHash}{MISSING}=0
+	% git data missing
+		\relax
+	\else % git data present
+		{\small\begin{center}Git hash:
+		\href{https://github.com/adebray/equivariant_homotopy_theory/commit/\gitAbbrevHash}
+		{\texttt{\gitAbbrevHash}} (Updated \gitAuthorIsoDate)\gitDirty\end{center}}
+	\fi
+}
+
+% possibly: \EM{R} -> Eilenberg-Mac Lane HR. \mathit?
