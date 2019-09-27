@@ -1,0 +1,92 @@
+%!TEX root = m392c_EHT_notes.tex
+\begin{quote}\textit{
+	``The Burnside category is really nice, but the Sideburn category is a bit hairier.''\index{pun}
+}\end{quote}
+The Burnside category is a souped-up version of the orbit category that accounts for transfers. There are at least
+five ways of defining it: we'll start with \cref{burn1} and later provide an alternative, \cref{burn2}.
+
+Recall that if $M$ is a $G$-manifold, we can equivariantly embed it in a finite-dimensional real $G$-representation
+$V$, so that we obtain a sequence of maps $S^V\to T\!\nu\to T(\nu\oplus\tau)\cong S^V\wedge M_+ = \Sigma^V M_+$.
+(Here $\nu$ is the normal bundle of $M$ and $\tau$ is the tangent bundle.) Thinking of this as a transfer $M\to *$,
+we'd like to do something similar for $G/H$. Namely, if $K\subset H$ are subgroups of $G$, we'd like to define a
+transfer map $G/K\to G/H$, a stable map (i.e.\ one that lives in $\colim\Map(\Sigma^V G/H, \Sigma^V G/K)$). This
+will be a ``wrong-way'' map.
+
+Applying $G\times_H\bl$ to $H/K\to *$, we get a map $G/K\to G/H$. The transfer for $G/K\to G/H$ is via the transfer
+$H/K\to *$, induced up from a map $H/K\inj V$. Here, $V$ is a $G$-representation, and the embedding is
+$H$-equivariant, where $H$ acts on $V$ by restriction. Thus, we obtain a map $S^V\to S^V\wedge H/K$.
+
+We want to understand how induction works on $H$-spaces whose structure has been defined by restriction from
+$G$-spaces.
+\begin{ex}
+Show that if $X$ is a $G$-space and $i_H^*X$ is the $H$-space defined by restriction, $G\wedge_H i_H^*X\cong
+G/H_+\wedge X$.
+\end{ex}
+So our map $G\wedge_H S^V\to G\wedge_H(S^V\wedge H/K_+)$ is identified with a map $G/H_+\wedge S^V\to G/K_+\wedge
+S^V$.
+
+Consider the maps in $\Hom_{\sO_G}(G/H_1, G/H_2)$ that are determined by subconjugacy, i.e.\ $G/H_1\congto
+G/g^{-1}H_1g\to G/H_2$ (we assume $g^{-1}H_1g\subset H_2$). There's a covariant functor from $\sO_G$ to the
+(equivariant) $S$-category which sends a map $f$ to its representative in the colimit, and we also have a
+contravariant functor: $G/H_1\to G/H_2$ takes the transfer map, then the inverse of the conjugation isomorphism.
+\begin{defn}
+\label{burn1}
+The \term{Burnside category} $B_G$ is the full subcategory of the $S$-category spanned by the orbits $G/H$.
+\end{defn}
+It's a theorem that every map in $B_G$ is a composition of two maps in the images of the two functors $\sO_G\to\cat
+S$ described above, which is pretty neat.
+
+The Burnside category is enriched in $\Top$, because the $S$-category is.
+\begin{defn}
+The \term[Burnside category!algebraic Burnside category]{algebraic Burnside category} is $\pi_0(B_G)$, which is
+enriched in $\Ab$. A \term{Mackey functor} is a functor $\pi_0B_G\to\Ab$.\index{algebraic Burnside category|see
+{Burnside category}}
+\end{defn}
+Mackey functors will be our replacement for coefficient systems. They arise in other contexts, so you could care
+about Mackey functors without caring about equivariant stable homotopy theory (well, you probably secretly do
+anyways). For that reason, there are definitions of Mackey functors that are less homotopical.
+
+We'd like to define the category of $G$-spectra to be ``spectral Mackey functors,''\footnote{As devloped in the model
+categorical setting in \cite{GuillouMay}, and in the $\infty$-categorical setting in \cite{cB2017}.} i.e.\ functors from $B_G$ to
+spectra. We need to develop tools for this first: we haven't developed a good model for spectra (in particular, a
+point-set model, not a model of the stable homotopy category), and we want these functors to be enriched, which
+will require some more work. We'll now begin to develop the tools to surmount these
+problems.\index{G-spectrum@$G$-spectrum!via spectral Mackey functors}
+\begin{rem}
+Once we have a good category $\Spc^G$ of $G$-spectra, we can provide another, equivalent definition of the Burnside
+category, as the full subcategory of $\Spc^G$ spanned by $\Sigma_+^\infty G/H$.
+\end{rem}
+\subsection*{Recollections about transfers.}
+One concrete example of a transfer map comes from a finite cover $\widetilde X\to X$: summing over the fibers
+defines a transfer map $H^*(\widetilde X;\Q)\to H^*(X;\Q)$.
+
+Transfers also arise in group cohomology $H^*(G;M)$, where $M$ is a $G$-module. This is computed by resolving $\Z$
+as a $\Z[G]$-module by some resolution $P_\bullet$, then computing $H^*(\Hom_G(P_\bullet, M))$. Now suppose
+$H\subset G$; there are two adjoints to the restriction functor $\Mod_G\to\Mod_H$.\index{transfer map!in group
+cohomology}
+\begin{itemize}
+	\item The left adjoint sends an $H$-module $N\mapsto \Z[G]\otimes_{\Z[H]} N$. This is called the
+	\term[induced $G$-action!on an $H$-module]{induced $G$-module} $\Ind_H^G N$.
+	\item The right adjoint sends $N\mapsto\Map_H(\Z[G], N)$. This is called the
+	\term[coinduced $G$-action!on an $H$-module]{coinduced $G$-module}, written $\CoInd_H^GN$.
+\end{itemize}
+These definitions, and their names, should look familiar.
+
+Now suppose $H\subset G$ is finite-index, e.g.\ when $G$ is a finite group. Then
+\[\Ind_H^G N\cong\bigoplus_{g\in G/H} gN\qquad\text{and} \CoInd_H^G N\cong\prod_{g\in G/H} gN.\]
+In an additive category, finite sums and finite products are isomorphic, so $\Ind_H^GN\cong\CoInd_H^G N$. When $G$
+is finite, the analogous statement about {\color{red}TODO} certain sums and products uniquely characterizes the
+equivariant stable category.\footnote{This is an instance of some life advice from Mike Hill: in order to avoid
+being confused by constructions in equivariant stable homotopy theory, try computing the analogous construction in
+group cohomology first. Group cohomology is very concrete, and so it's definitely worth thinking this through in
+this case.}
+
+So if $H\subset G$, we'd like to build a transfer map $H^*(H;M)\to H^*(G;M)$, where $M$ is a $G$-module made an
+$H$-module by restricting. Induction is left adjoint to the restriction functor $i_H^*$, so the counit of the
+adjunction is a map $\eta\colon\Ind_H^G i_H^*M\to M$. In particular, $H^*(H;M)\cong H^*(G;\Ind_H^G
+M)\stackrel\eta\to H^*(G;M)$, and this is the desired transfer map.
+
+As group cohomology $H^*(G;M)$ is the cohomology of $BG$ in the local system defined by $M$, you could ask whether
+the transfer map is induced from a map $BG\to BH$ (in $\Top$). This is true, and the map is a
+fibration.\footnote{If you don't restrict to finite subgroups, this is not quite true: if $H\subset G$ is a
+subgroup of infinite index, the map in question only exists on the spectrum level.}

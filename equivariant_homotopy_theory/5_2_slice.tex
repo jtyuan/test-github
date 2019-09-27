@@ -1,0 +1,184 @@
+In this section, we discuss the slice spectral sequence, the equivariant version of the Postnikov spectral
+sequence. Very little is known about the slice spectral sequence, so you could pursue it in your research. For
+example, its use in~\cite{HHR} depended on an explicit identification of the slices with something else, which does
+not generalize.
+
+\subsection*{Postnikov towers.} For this section, we work in the category $\Top$ of spaces. We want a collection of
+functors $P_n\colon\Top\to\Top$, called \term[Postnikov section]{Postnikov sections}, together with natural
+transformations $P_n\to P_{n-1}$, such that
+\begin{itemize}
+	\item
+	\[\pi_i(P_nX) = \begin{cases}
+		\pi_i(X), &0\le i\le n\\
+		0, &\text{otherwise;}
+	\end{cases}\]
+	\item $X\cong\holim P_nX$; and
+	\item the homotopy fiber of $P_nX\to P_{n-1}X$ is weakly equivalent to $K(\pi_n(X), n)$.
+\end{itemize}
+So we obtain a \term{Postnikov tower} $\dotsb\to P_2X\to P_1X\to P_0X$, which is in a sense dual to the cellular
+filtration.\index{cellular filtration}
+\begin{rem}
+The axiomatization of the idea of a Postnikov tower in a triangulated category is called a
+\term[t-structure@$t$-structure]{$t$-structure}~\cite{BBD}. The dual notion of a cellular filtration is axiomatized
+as a \term{weight structure}~\cite{Bondarko}.
+\end{rem}
+These $P_nX$ have only finitely many nonzero homotopy groups, hence must be very large spaces. There are multiple
+different point-set models for them. Here's one model.
+
+Choose an $\alpha\in\pi_{n+1}(X)$, which defines a homotopy class of maps $f_\alpha\colon S^{n+1}\to X$. Let
+$\widetilde X$ be the pushout
+\[\xymatrix{
+	S^{n+1}\ar[r]^{f_\alpha}\ar[d] & X\ar[d]\\
+	D^{n+2}\ar[r] & \widetilde X.\pushout
+}\]
+This kills $\alpha$, and since $S^{n+1}$ is $n$-connected, the induced map $\pi_k(X)\to\pi_k(\widetilde X)$ is an
+isomorphism for $k < n+1$. Then we can iterate.
+
+This has a fatal flaw: it's not functorial. As usual, we fix this with the small object argument. Consider
+\emph{all} of the maps $S^{n+1}\to X$ and take the pushout\index{small object argument}
+\[\xymatrix{
+	\bigvee S^{n+1}\ar[r]\ar[d] & X\ar[d]\\
+	\bigvee D^{n+2}\ar[r] & X_{n+1}.
+}\]
+Continue this way for maps $S^N\to X$ for $N\ge n+1$ and let $P_nX\coloneqq \colim_N X_N$. This is functorial.
+
+The functor $P_n$ can be described as localization, e.g.\ in~\cite{MandellShipley}, which allows for some slick
+high-tech setups: if you work with presentable $\infty$-categories, you can describe $P_n$ as adjoint to the
+inclusion of spaces with homotopy groups within $[0,n]$, as in~\cite[\S5.5.6]{HTT}.
+\index{presentable $\infty$-category}
+
+The Postnikov tower leads to the \term{Atiyah-Hirzebruch spectral sequence} (AHSS), which for a generalized
+homology theory $E$, has signature
+\[E_{p,q}^2 = H_p(X; E_q(*))\Longrightarrow E_{p+q}(X).\]
+\begin{ex}[Maunder~\cite{Maunder}]
+If you play the same game with the CW filtration, you obtain an isomorphic spectral sequence. It's a good exercise
+to work this out yourself.
+\end{ex}
+This works in more than just spaces: you can set it up for spectra, and (with a little technical work) for
+(commutative) ring spectra.
+\subsection*{The equivariant case.}
+We'd like to do this in $\Spc^G$. The slice spectral sequence will be an analogue to the Atiyah-Hirzebruch spectral
+sequence. One difficulty will be understanding the associated graded, which is considerably more complicated than
+the nonequivariant Postnikov or CW associated graded complexes, and this is ultimately because there are more
+spheres around.
+
+The first piece of the slice spectral sequence was worked out by Dugger~\cite{DuggerKR}. His motivation was the
+analogy between $C_2$-equivariant homotopy theory and motivic homotopy theory. Following
+Bloch-Lichtenbaum~\cite{BlochLichtenbaum} and Grayson~\cite{Grayson}, the goal was to approach the
+Quillen-Lichtenbaum conjecture~\cite{Quillen}, the existence of a spectral sequence\index{motivic homotopy
+theory!analogy with $C_2$-equivariant homotopy theory}\index{Quillen-Lichtenbaum conjecture}
+\[H^p(X; \Z(-\e/2))\Longrightarrow K^{p+q}(X).\]
+Here, $H^*(\bl,\Z(-\e/2))$ is ``motivic cohomology,'' which was not well-understood when the conjecture was
+formulated. The $-\e/2$ is a \term{Tate twist}, which is akin to Bott periodicity for algebraic $K$-theory of
+finite fields. See~\cite{BlochLichtenbaum, Grayson} for details or Mitchell~\cite{Mitchell} for an exposition.
+Dugger replaced this with a conditionally convergent spectral sequence
+\[E_2^{p,q} = H^{p,r-q/2}(X;\underline\Z)\Longrightarrow \KR^{p+q,r}(X),\]
+where
+\begin{itemize}
+	\item $X$ is any $C_2$-space,
+	\item $\underline\Z$ is the constant Mackey functor valued in $\Z$, and
+	\item $\KR$ is Atiyah's $\KR$-theory~\cite{AtiyahKR}.
+\end{itemize}
+If $q$ is odd, we take $E_2^{p,q} = 0$.
+\index{Bott periodicity}\index{motivic cohomology}\index{K-theory@$K$-theory!real equivariant $K$-theory}
+
+The general formulation of the slice spectral sequence was worked out in~\cite{HHR}; see also
+Hu-Kriz-Ormsby~\cite{HKO11}. The exposition in~\cite{HHR} is pretty good, and you should also check out Mike Hill's
+introduction~\cite{HillSlice}.
+
+To get at the spectral sequence, we first approach the filtration. The motivation is to have a Postnikov section
+$P_H$ for the regular representation $\rho_H$ of $H$. The \term{slice cells} will be the cells\index{regular
+representation}
+\[\set{G_+\wedge_H S^{m\rho_H}, \Sigma^{-1}G_+\wedge_H S^{m\rho_H}}.\]
+The \term[dimension!of a slice cell]{dimensions} of these slice cells are $m\abs H$, resp.\ $m\abs H - 1$.
+
+Slice cells are well-behaved under the ``change functors'' $i_K^*$, $G_+\wedge_K\bl$, and $N_K^G$: all of these
+preserve slice cells.
+\begin{defn}
+Let $X\in\Spc^G$.
+\begin{itemize}
+	\item $X$ is \term{slice $n$-null} if $\Map(\widehat S, X)$ is contractible (as a $G$-space) for all slice
+	cells $\widehat S$ of dimension greater than $n$. One also says $X$ is \term{slice $< n$} or
+	\term{slice $\le n-1$}.
+	\item $X$ is \term{slice $n$-positive} (also \term{slice $> n$} or \term*{slice $\ge n+1$}) if $\Map(\widehat S,
+	X)$ is contractible (as a $G$-space) for all slice cells $\widehat S$ of dimension at most $n$.
+\end{itemize}
+\end{defn}
+\begin{ex}[\cite{HHR}, Prop.~4.11]
+Let $X$ be a $G$-spectrum.
+\label{slicerecognition}
+\begin{enumerate}
+	\item Show that $X$ is slice $0$-positive iff it's $-1$-connected.\footnote{By \term*{$n$-connected} we mean
+	the Mackey functor $\underline\pi_kX = 0$ for $k\le n$, and by \term*{$n$-coconnected} we mean
+	$\underline\pi_kX = 0$ for $k\ge n$.}
+	\item Show that $X$ is slice $-1$-positive iff it's $-2$-connected.
+	\item Show that $X$ is slice $0$-null iff it's $0$-coconnected.
+	\item Show that $X$ is slice $-1$-null iff it's $-1$-coconnected.
+\end{enumerate}
+\end{ex}
+\index{n-connected@$n$-connected}
+\index{n-coconnected@$n$-coconnected}
+\index{coconnected|see {$n$-coconnected}}
+\begin{prop}[\cite{HHR}, Prop.~4.15]
+$X$ is slice $n$-positive iff up to weak equivalence, there's a filtration $X_0\subseteq
+X_1\subseteq\dotsb\subseteq X$ such that $X_i/X_{i-1}$ is a wedge of slice cells of dimensions greater than $n$.
+\end{prop}
+
+We localize at the slices of dimension greater than $n$ to obtain $P^nX$, the
+\term[n-slice section@$n$-slice section]{$n$-slice section} of $X$. This is a bit tricky, because there are maps
+$S^V\to S^W$ when $V\subseteq W$ that aren't null-homotopic, frustrating our approach to defining the Postnikov
+tower, but the key is that if $V$ contains a trivial representation, all such maps are
+null-homotopic.\index{trivial representation}
+
+Localization means there's a map $X\to P^nX$ by fiat, and one can show that the homotopy fiber of this map is slice
+$n$-positive. We obtain a tower $\dotsb\to P^nX\to P^{n-1}X\to \dotsb$. Let $P_n^nX$ denote the homotopy fiber of
+$P^nX\to P^{n-1}X$; $P_n^nX$ is called the \term[n-slice@$n$-slice]{$n$-slice} of $X$.
+\begin{ex}[\cite{HHR}, Prop.~4.20]
+Show that the $-1$-slice of $X$ is
+\[P_{-1}^{-1}X = \Sigma^{-1} H(\underline\pi_{-1}X),\]
+where again $\underline\pi_{-1}$ means to take the homotopy group as a Mackey functor. (Hint: use
+\cref{slicerecognition}.)
+\end{ex}
+\cite{HHR} heavily use the fact that the regular\index{regular representation}
+representation contains a copy of all irreducibles to understand what's going on, which is great for finite groups,
+but doesn't work for compact Lie groups. There's a different perspective adopted by Dugger, that $G/H_+\wedge S^n$
+detects homotopies, so we can restrict to slice cells $G/H_+\wedge S^V$ where $V$ contains a copy of the trivial
+representation (and $\Sigma^{-1}$ of these cells). The slice filtration has some other nice properties: $\holim
+P^nX\cong X$, and $\colim P^nX\simeq *$.
+
+These localizations are controlled by the subcategory of $\Spc^G$ determined by positive shifts and cofibers of
+slice cells. Negative shifts are not allowed, so when passing to the homotopy category, this isn't a triangulated
+subcategory.
+
+This slice filtration produces the \term{slice spectral sequence}, which is a strongly convergent spectral sequence
+\begin{equation}
+\label{SlSS}
+E_2^{s,t} = \pi_s^G P_t^tX\Longrightarrow \pi_{s-t}^G X.
+\end{equation}
+Here we use the Adams grading, so this may look funny compared to the usual grading on, e.g.\ the Serre spectral
+sequence. You can refine the slice spectral sequence into a spectral sequence of Mackey functors, and there is an
+$\RO(G)$-graded version. If you think about it, you'll see this is a first- and third-quadrant spectral
+sequence.\index{Adams grading}\index{Mackey functor}
+
+The key to understanding the slice spectral sequence is understanding the slices $P_t^tX$, and this is hard:
+\cite{HHR} uses the fact that real bordism has nice slices, which does not generalize. Nonetheless, there are some
+general results known: Hill-Yarnall~\cite{HillYarnall} provide a computable condition for slice $n$-connectivity,
+and Wilson~\cite{Wil17} provides an algebraic description of the category of $n$-slices for $G$ finite.
+% TODO: study of slice connectivitydue to HillYarnall
+% TODO: algebraic characterization due to Wilson
+
+There are some computations in the literature: Dugger~\cite{DuggerKR}, Hill-Meier~\cite{HillMeier}, and
+Greenlees~\cite{GreenCalc} work out some over $C_2$; Hill~\cite{HillRealBordism} and
+Hill-Hopkins-Ravenel~\cite{HHR_C4} study the slices of $N_{C_2}^{C_{2^k}}\MR$; and Yarnall~\cite{Yarnall} and
+Hill-Hopkins-Ravenel~\cite{HHR_HZ} study the slices of $\Sigma^V H\underline\Z$.
+
+\index{real bordism}
+
+%
+%This concludes the content of the course; on Thursday there will be donuts and discussion of future research. Some
+%of these are important open questions that may be intractable, and others could be research projects; hopefully
+%it will be clear which is which.
+
+These notes will hopefully be a living document; feel free to update with better explanations, or to fix mistakes,
+or to add examples, or anything like that. There are relatively few references for equivariant homotopy theory, and
+it would be great for the notes to be one more, hopefully in a presentable way.

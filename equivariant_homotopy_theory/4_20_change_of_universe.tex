@@ -1,0 +1,141 @@
+\begin{quote}\textit{
+	``Do I dare disturb the universe?''
+}\end{quote}
+\label{change_of_universe_sec}
+
+In this section, we discuss the construction and some properties of the HHR norm $N_H^G\colon \Spc^H\to\Spc^G$ and
+$N_H^G\colon \Spc^H[\P]\to\Spc^G[\P]$. This is the left adjoint to $i_H^*$ (for commutative algebras), and is the
+basis for multiplicative induction in the spectral setting. Thus it specializes to the norm in algebra.
+
+We know what we want to do, but the technicalities are tricky.
+\begin{notdefn}
+The \term[norm map!HHR norm]{norm map} $N_H^G\colon \Spc^H\to\Spc^G$ sends
+\[M\mapsto \theta^*\paren{\bigwedge_{g\in G/H} M},\]
+which is the indexed smash product, in direct analogue with tensor induction.
+\end{notdefn}
+The reason we use the smash product instead of the wedge sum is that spectra are already abelian groups. The
+additive analogue of this construction is the Wirthmüller isomorphism.\index{Wirthmüller isomorphism!as additive
+analogue of the HHR norm}
+
+What makes this construction tricky is figuring out how to give $\bigwedge_{g\in G/H} M$ a $\Sigma_n\wr H$-action.
+The issue is the universe.
+\begin{exm}
+Let $X\in\Spc$, and let's consider $N_e^{C_2}X$. If $U$ is the universe we started with, $X\wedge X$ is in $U\oplus
+U$, and the smash product is a Kan extension along $U\oplus U\to U$.\index{Kan extension}
+
+If $X$ is a space, $C_2$ acts on $X\times X$ by switching the pairs. And we know the diagonal map $x\mapsto (x,x)$
+defines an isomorphism $X\congto (N_e^{C_2} X)^{C_2}$. But if you have spectra instead, and the two universes are
+different, i.e.\ $U_1\oplus U_2$ instead of $U\oplus U$, which makes it hard to resolve.
+\end{exm}
+The solution is a trick, due to unpublished work of Lydakis and elucidated by~\cite{HHR}. Consider $X$ in the
+trivial $H$-universe, i.e.\ $X$ is an $H$-object in $\Spc$. Then there's no problem: $N_e^{C_2}X$ is a $C_2$-object
+in $\Spc$, or $\Spc^{C_2}$ with the trivial universe. If we're not keeping track of the equivariant universe, it's
+easy to make sense of the map $N_H^G\colon H\Spc\to G\Spc$.
+
+The trick is the following point, which is extremely subtle: we can define $N_G^H\colon \Spc^H\to\Spc^G$ by
+changing the universe from $\Spc^H$ to $H\Spc$ (i.e.\ the trivial universe), then using the tensor induction to get
+to $G\Spc$ (i.e.\ the trivial universe), then changing universe again to get back to $\Spc^G$. As a point-set
+construction, well, sure, this is a functor. But the crazy thing is that this works: you can make this a homotopical
+functor such that its derived functor is the right thing.\index{change-of-universe map}
+
+Recall that $\Spc^G[\P]$ denotes the category of commutative ring objects in $G$-spectra\index{commutative ring
+spectrum} (sometimes also written $\cat{Comm}_H$). We'll show that $N_H^G\colon\Spc^H[\P]\to\Spc^G[\P]$ is left
+adjoint to $i^*_H$, and hence, if $R$ is a commutative ring $G$-spectrum, we have a counit $N_H^Gi_H^*R\to R$ as we
+did in group cohomology.
+
+The principal player in~\cite{HHR} is obtained from this norm and a concrete $C_2$-spectrum: in \cref{MRdefn},
+we'll define real bordism $\mathit{MR}$,\index{real bordism} the cobordism theory of stably almost complex
+manifolds with a $C_2$-action by complex conjugation (there are some nuances to writing this down). Then, they
+consider the $C_8$-theory $N_{C_2}^{C_8}\mathit{MR}$, and do a lot of hard work to show this detects the Kervaire
+invariant in the stable homotopy groups of spheres. People are still working out the applications of this spectrum
+and this idea more generally, and you could count yourself among their numbers.\index{Kervaire invariant $1$
+conjecture}
+
+Now we'll construct the norm map. This will involve some work with orthogonal spectra, so let's recall how
+orthogonal $G$-spectra are defined, especially since we covered it rather quickly.\footnote{\TODO: there may be
+notational inconsistencies with the first time orthogonal spectra were covered, which I should fix at some
+point.}\index{orthogonal $G$-spectrum}
+
+Recall that if $V$ and $V'$ are real $G$-representations on inner product spaces, we defined $I_G(V,V')$ to be the
+$G$-space of linear isometries $V\to V'$. We defined $J_G(V,V')$ to be the Thom space for $E\subseteq
+I_G(V,V')\times V'\to I_G(V,V')$, where $E$ is the \term{orthogonal complement}
+\[E \coloneqq \set{(f,x)\mid x \in V - fV}.\]
+When $V\subseteq V'$, you can write this explicitly as
+\[J_G(V,V') = \O(V')_+\wedge_{\O(V' - V)} S^{V' - V}.\]
+Now, let $J_G$ be the category whose objects are $G$-representations on finite-dimensional real inner product
+spaces and whose morphism spaces are $J_G(V,V')$ as we defined them. In particular, there's a composition law
+$J_G(V',V'')\times J_G(V,V')\to J_G(V, V'')$ and a symmetric monodial product
+\begin{align*}
+	(f,x) + (f',x') &= (f+f', x+x')\\
+	(g,y)(f,x) &= (gf, gx+y).
+\end{align*}
+The unit is $(\id,0)$.
+
+Now, we were able to define $\Spc^G = \Fun(J_G, G\Top_*)$, and we saw this has a symmetric monoidal structure.
+
+One important point is that the Yoneda lemma implies\index{Yoneda lemma}
+\begin{equation}
+\label{tautpres}
+\xymatrix{\bigvee_{V,W} S^{-W}\wedge J_G(V,W)\wedge X(V)\dblarrow[r]
+& \bigvee_V S^{-V}\wedge X(V)\ar[r] &
+X}
+\end{equation}
+is a coequalizer of $X$ in terms of representable objects. This is true in general for presheaves, and in this
+context,~\cite{HHR} call it the \term{tautological presentation} of $X$.
+
+Now we'll introduce the point-set change-of-universe functor $\Spc^G[U']\to\Spc^G[U]$, where $U$ and $U'$ are
+$G$-universes. Let\index{change-of-universe map!point-set model}
+\[I_{U'}^UX(V)\coloneqq J_G(\R^n, V)\wedge_{\O(n)} X(\R^n),\]
+where $\dim V = n$. If $W$ is a $p$-dimensional $G$-representation, the action of $J_G(V,W)$ on this comes through
+the diagram
+\[\xymatrix{
+	J_G(V,W)\wedge J_G(\R^n, V)\wedge_{\O(n)} X(\R^n)\ar[d] \\
+	J_G(\R^n, W)\wedge_{\O(n)} X(\R^n)\ar[r] &J_G(\R^p,
+	W)\wedge_{\O(p)} J_G'(\R^n,\R^p)\wedge_{\O(n)} X(\R^n)\ar[r] & J_G(\R^p, W)\wedge_{\O(p)} X(\R^p).
+}\]
+\begin{ex}
+Show that $I_{U'}^U I_U^{U'} = \id$. This is not hard. Also, check that $I_{U'}^U$ is strong symmetric monoidal.
+\end{ex}
+Thus, for any $U$ and $U'$, $\Spc^G[U]$ and $\Spc^G[U']$ are equivalent! This is true for the same reason as
+\cref{LReq}.
+\begin{rem}
+It's also quick to check that $I^{\R^\infty}_U$ is the forgetful functor.
+\end{rem}
+Let $U$ be a complete $H$-universe and $\widetilde U$ be a complete $G$-universe. Then, we'll define
+$N_H^G\colon\Spc_U^H\to\Spc_{\widetilde U}^G$ by
+\[X\mapsto I_{\R^\infty}^{\widetilde U} \theta^*\paren{\bigwedge_{G/H} X} I_U^{\R^\infty} X.\]
+Here $\theta$ is the wreath action we introduced in \S\ref{evenssec}. This functor is clearly strong symmetric
+monoidal, and turns out to be left-adjoint to $i_H^*\colon\Spc^G_{\widetilde U}[\P]\to\Spc_U^H[\P]$, i.e.\ on the
+categories of commutative algebras.
+
+The miracle is that this can be derived in the usual model structure by cofibrant replacement, so it's
+homotopically the right thing. We won't prove this; it's one of the technically hardest parts of~\cite{HHR}: it's
+not a left adjoint on modules, so it doesn't commute with colimits, and one has to carefully analyze what it does
+to pushouts.
+
+There are a few key facts:
+\begin{itemize}
+	\item $N_H^G$ is symmetric monoidal.
+	\item $N_H^G S^{-V} = S^{-\Ind_H^G V}$.
+	\item There's a diagonal map $\Phi^HX\to\Phi^G N_H^G X$, and it's an equivalence. In fact, when $X$ is
+	cofibrant, this is a point-set equivalence!
+\end{itemize}
+We'll begin showing this by describing $\Phi^G$, which is a strong symmetric monoidal functor such that if $Z$ is a
+space, $\Phi^G(S^{-V}\wedge Z)\cong S^{-V^G}\wedge Z^G$. In the $\infty$-categorical sense, it commutes with
+colimits, but this is not true in the point-set case; in any case, mirroring the tautological
+presentation~\eqref{tautpres}, $\Phi^GX$ is the coequalizer
+\[\xymatrix{
+	\bigvee_{V,W} S^{-W^G}\wedge J_G(V,W)^G\wedge X(V)^G\dblarrow[r] & \bigvee_V S^{-V^G}\wedge X(V)^G\ar[r] &
+	\Phi^G X.
+}\]
+It's not too hard to check this is the same as the model described in~\citeme{Mandell-May}. We'll use this
+description to construct the diagonal map. Using the fact that $Z^H\cong (N_H^G Z)^G$,
+\[\Phi^G N_H^G S^{-V}\cong \Phi^G\paren{S^{-\Ind_H^G V}} \cong S^{-V^H}\cong\Phi^H S^{-V}.\]
+Therefore we have an isomorphism
+\[\Phi^H(S^{-V}\wedge Z)\stackrel\cong\longrightarrow \Phi^G N_H^G(S^{-V}\wedge Z).\]
+Applying this termwise to the tautological construction, we obtain a map
+\[\xymatrix{
+	\bigvee_{V,W} S^{-W^H}\wedge I_H(V,W)^G\wedge X(V)^H\dblarrow[r] & \bigvee_V S^{-V^G}H\wedge X(V)^H\ar[r] &
+	\Phi^G N_H^G X,
+}\]
+hence by the universal property of the coequalizer, a map $\Phi^HG\to\Phi^G N_H^G X$.
