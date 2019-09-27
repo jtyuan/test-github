@@ -1,0 +1,210 @@
+%!TEX root = m392c_EHT_notes.tex
+
+\begin{quote}\textit{
+	``What's bad about this proof?''\\
+	``It appeals to machinery we didn't develop in this class?''\\
+	``No, that's perfectly fine.''
+}\end{quote}
+
+In this section, we take up Elmendorf's theorem, which provides another model for $G\Top$ as $\Top$-valued
+presheaves on a category called the orbit category. Its proof gives us an opportunity to discuss the bar
+construction, which is ubiquitous in homotopy theory.
+\begin{defn}
+The \term{orbit category} $\sO_G$ is the full subcategory of $G\Top$ on the objects $G/H$.
+\end{defn}
+That is, its objects are the spaces $G/H$, where $H\subset G$ is closed, and its morphisms are $\Map^G(G/H,
+G/K)\cong (G/K)^H$. These maps are the same thing as subconjugacy relations, i.e.\ those of the form
+\begin{equation}
+\label{subconj}
+gHg^{-1}\subseteq K,
+\end{equation}
+since for all $h \in H, h(gK) = gK$ if and only if $K = g^{-1}hgK$ if and only if $gHg^{-1} \subseteq K$. A
+$G$-map $f\colon G/H\to G/K$ is completely specified by what it does to the identity coset $f(eH) = gK$, and this
+$g$ implies the subconjugacy relation~\eqref{subconj}, since, as above, $h(gK) = gK$ for all $h \in
+H$.\index{subconjugacy}
+
+There's another description of the orbit category.
+\begin{prop}
+Let $G$ be a finite group. Then, the orbit category $\sO_G$ is equivalent to the category of finite transitive
+$G$-sets and $G$-maps.
+\end{prop}
+The observation that ignites the proof is that if $x\in X$ has isotropy group $H$, then its orbit space is
+isomorphic to $G/H$.\index{isotropy group}
+\begin{defn}
+Given a $G$-space $X$, we obtain a presheaf on the orbit category, namely a functor
+$X^{(\bl)}\colon\sO_G\op\to\Top$, by sending $G/H\to X^H$. This assignment itself is a functor $\psi\colon
+G\Top\to\Fun(\sO_G\op, \Top)$.\index{presheaf!on the orbit category}
+\end{defn}
+\begin{prop}
+$\Fun(\sO_G\op, \Top)$ has a projective model structure where the weak equivalences and fibrations are taken
+pointwise.\index{model structure!on $\Fun(\sO_G\op, \Top)$}
+\end{prop}
+The point is the following result, a revisionist interpretation of Elmendorf's theorem. Elmendorf's original
+proof~\cite{Elmendorf} showed these two categories have the same homotopy theory, but his proof was more explicit
+and did not use model categories.
+\begin{thm}[Elmendorf~\cite{Elmendorf, Stephan}]
+\label{revElmen}
+\index{Elmendorf's theorem}
+$\psi$ is the right adjoint in a Quillen equivalence; the left adjoint $\theta$ is evaluation at $G/e$.
+\end{thm}
+That is, these two model categories have the same homotopy theory.
+\begin{ex}
+Check that evaluation at $G/e$ is a left adjoint to $\psi$.
+\end{ex}
+It's also possible to state Elmendorf's theorem in a more general form.
+\begin{thm}[Elmendorf]
+\label{elmendorf}
+\index{Elmendorf's theorem!$\infty$-categorical version}
+The functor $G\Top\to\Fun(\sO_G\op, \Top)$ determined by $X\mapsto \paren{G/H\mapsto X^H}$ induces an equivalence
+of $(\infty, 1)$-categories, where the weak equivalences on the left and right are specified by a family $\sF$.
+\end{thm}
+Without delving into $(\infty,1)$-categories, this means
+\begin{itemize}
+	\item the homotopy categories are equivalent, and
+	\item homotopy limits and colimits behave identically.
+\end{itemize}
+In other words, from the perspective of abstract homotopy theory, these are the same.
+
+Let $X$ be a finite $G$-set. Then, $X$ is the coproduct (disjoint union) of a bunch of orbits:
+\[X \cong \coprod_i G/H_i.\]
+The way you see this is that for any $x\in X$, its orbit is isomorphic to $G/G_x$. This is yet another
+manifestation of the slogan that ``orbits are points.'' But it also implies that, rather than just presheaves on
+$\sO_G$, one could work with certain presheaves on the category of finite $G$-sets, and this perspective will turn
+out to be useful. By ``certain'' we mean a compatibility with orbits.
+
+\begin{defn}
+By a \term[family of subgroups]{family} of subgroups $\sF$ of $G$, we mean a collection of subgroups of $G$ closed
+under conjugation and taking subgroups.
+\end{defn}
+Examples include the set of all subgroups, the set of just the identity, and the set of finite subgroups. The
+latter is useful for some $S^1$-equivariant spaces, where one tends to lose control of the $S^1$-fixed points, but
+the finite subgroups behave better.
+\begin{defn}
+Let $\sF$ be a specified family of subgroups of $G$.
+\begin{itemize}
+	\item In $G\Top$, the weak equivalences specified by $\sF$ are the maps $f\colon X\to Y$ such that $f^H\colon
+	X^H\to Y^H$ is a weak equivalence for all $H\in\sF$.\index{weak equivalence!specified by a family of subgroups}
+	\item For $\Fun(\sO_G\op, \Top)$, a weak equivalence specified by $\sF$ is a pointwise weak equivalence at
+	$G/H$ for all $H\in\sF$.
+\end{itemize}
+\end{defn}
+We'll give two proofs of \cref{elmendorf}. The first will be model-categorical.
+
+Recall\footnote{If this is not review to you, then exercise: learn this material!} if $\adjnctn\fC\fD FG$ is a Quillen adjunction, then the left and right derived functors $(\LD F, \RD G)$ is an adjunction on the
+homotopy categories $(\operatorname{Ho}\fC, \operatorname{Ho}\fD)$. If $K$ denotes fibrant replacement in $\fD$ and
+$Q$ denotes cofibrant replacement in $\fC$, then the derived functors are $\LD F = FQ$ and $\RD G =
+GK$.\footnote{This does require cofibrant and fibrant replacement to be functorial, which is not true in every
+model category, but will be true for pretty much everything we study.}\index{Quillen adjunction}
+\begin{defn}
+That $(F, G)$ is a \term{Quillen equivalence} means that for any cofibrant $X\in\fC$ and fibrant $Y\in\fD$, then
+$FX\to Y$ is a weak equivalence iff its adjoint $X\to GY$ is.
+\end{defn}
+This is equivalent to asking that $(\LD F, \RD G)$ are equivalences of categories.
+
+This is a kind of curious way to look at an equivalence of categories. One says that $G\colon \fD\to\fC$
+\term[creating the weak equivalences]{creates the weak equivalences} of $\fD$ if for every morphism $f$ of $\fD$,
+$f$ is a weak equivalence iff $Gf$ is.
+\begin{lem}
+\label{forgetWElem}
+If $G$ creates the weak equivalences of $\fD$ and for all cofibrant $X$ the unit map $X\to GFX$ is a weak
+equivalence, then $(F,G)$ is a Quillen equivalence.
+\end{lem}
+This is a useful tool for extending model categories along free-forgetful adjunctions; for example, if you have a
+model category and want to understand abelian group or ring objects in this category, often their weak equivalences
+are detected by the forgetful functor.
+\begin{proof}[Proof sketch of \cref{elmendorf}]
+We want to apply \cref{forgetWElem} to the adjunction
+\[ \adjnctn {\Fun(\sO_G\op, \Top)}{G\Top}\theta\psi,\]
+where $\theta\colon X\mapsto X(G/e)$ is evaluation at $G/e$ and $\psi\colon Y\mapsto\set{Y^H}$. The first
+condition, that $\psi$ detects the weak equivalences, is straightforward, so we need to check that
+$X\mapsto\set{X(G/e)^H}$ is a weak equivalence for all cofibrant $X$.
+
+Cellular objects model the generating cofibrations, so cofibrant objects are retracts of cellular objects. Since
+weak equivalences are preserved under retracts, then we can check on cellular objects. Here it's easier, since
+$(\bl)^H$ commutes with the relevant colimits and is suitably cellular.
+\end{proof}
+The missing steps in this proofs can be filled in by explicitly identifying the cofibrant objects in
+$\Fun(\sO_G\op, \Top)$. These are free diagrams on the orbit category; not hard to write down, but messy enough to
+avoid on the chalkboard.
+\begin{rem}
+Elmendorf's original proof of his theorem was in the 1980s and did not use model categories, even though Quillen
+had already introduced them at the time. Until the mid-1990s (30 years after Quillen introduced model categories
+in~\cite{QuillenHA}), many homotopy theorists avoided them, thinking of them as formal gobbledygook. However, about
+the time~\cite{EKMM} introduced a symmetric monoidal category of spectra, people began realizing they were
+unavoidable.
+\end{rem}
+You might not like the given proof of Elmendorf's theorem because it's extremely inexplicit: cofibrant replacement
+is an infinite process, and many of the steps involved are quite abstract. The next proof will be more explicit,
+building a (homotopical) right adjoint to $\psi$.
+
+This proof will go through the \term{bar construction}, a categorical tool that's extremely useful. References for
+it include May's ``Geometry of iterated loop spaces'' \cite{MayGILS}, Riehl's monograph~\cite{RiehlCHT}, and Vogt's ``Tensor
+products of functors.''
+\begin{proof}[Second proof of \cref{elmendorf}]
+Let $M\colon \sO_G\to\Top$ realize orbits as spaces: $G/H$ is sent to the topological space $G/H$, and an
+equivariant map $f$ is forgotten to a continuous map $f$.
+
+Given an $X\in\Fun(\sO_G\op, \Top)$, let
+\[\Phi(X) \coloneqq \abs{B_\bullet(X, \sO_G, M)}\]
+denote the geometric realization of the simplicial bar construction. Let's be a little more explicit about this.
+$B_\bullet(X, \sO_G, M)$ is a simplicial space that sends
+\[[n]\mapsto \coprod_{G/H_{n-1}\to\dotsb\to G/H_0} X(G/H_0)\times M(G/H_{n-1}).\]
+As usual, the face maps are defined by composition, and the degeneracies by inserting the identity map. Since $G$
+acts on $M(\bl)$ simplicially (i.e., in a way compatible with the face and degeneracy maps), then
+$\abs{B_\bullet(X, \sO_G, M)}$ is a $G$-space (passing through the coend\index{coend} formula for the geometric
+realization).
+
+If $H\subseteq G$, we want to understand $\Phi(X)^H$. Because the $G$-action passed through geometric realization,
+\[\Phi(X)^H\cong \abs{B_\bullet(X, \sO_G, M^H)}\cong \abs{B_\bullet(X, \sO_G, \Map_{\sO_G}(G/H, \bl))}.\]
+Let $X(G/H)$ denote the constant simplicial space $[n]\mapsto X(G/H)$. Then, by general theory of the bar
+construction for any corepresented functor, there's a simplicial map\index{corepresentability}
+\begin{equation}
+\label{extra_degeneracy}
+B_\bullet(X, \sO_G, \Map_{\sO_G}(G/H, \bl))\longrightarrow X(G/H)
+\end{equation}
+defined by composing and applying $X$, and this is a simplicial homotopy equivalence (you can write down a
+retraction).\footnote{This is called an \footterm{extra degeneracy argument} in the literature. There's an
+observation probably due to John Moore which approximately says that if you have a simplicial object with an extra
+degeneracy condition playing well with the preexisting ones, then it must be contractible; this argument is applied
+to the fiber of~\eqref{extra_degeneracy}.} Thus, $\Phi(X)^H\cong X(G/H)$. In other words, $\Phi$ is a homotopy
+inverse, since taking $H$-fixed points of $\Phi(X)$ gives back what you started with.
+\end{proof}
+$\Phi(X)$ is still an infinite-dimensional object, but it's much more explicit, and you can work with it.
+\subsection*{Applications of this perspective.}
+We'll be able to use Elmendorf's theorem to make some constructions that would be hard to imagine without the orbit
+category.
+\begin{defn}
+Let $\sF$ be a family of subgroups of $G$. Then, the \term{classifying space!for a family of subgroups} for $\sF$
+is specified by the universal property that if $Z$ has $\sF$-isotropy, then $[Z, E\sF]$ has a unique element. An
+explicit construction is to let $\widetilde E\sF$ denote the presheaf on the orbit category where
+\[\widetilde E\sF(G/H) \coloneqq
+\begin{cases}
+	*, &H\in\sF\\
+	\varnothing, &H\not\in\sF,
+\end{cases}\]
+and let $E\sF\coloneqq \Phi(\widetilde E\sF)$.
+\end{defn}
+If you unwind the definition, this is the bar construction applied to $G$ in the category of $G$-spaces with weak
+equivalences given by $\sF$, meaning it deserves to be called a classifying space.
+\begin{rem}
+One use for $E\sF$ is for when you want to focus attention on a family of subgroups. One common example is
+$S^1$-spaces, in which there are many constructions that are fixed by the finite subgroups of $S^1$, so having that
+family $\sF$ is helpful, and for this one can smash with $E\sF$.
+
+There are various other applications. One is called \term{isotropy separation}, which splits up $\sF$ into pieces
+that can be detected with different kinds of isotropy subgroups, and one can induct on this in nice cases.
+\end{rem}
+
+Another useful notion is the $G$-connected components.
+\begin{defn}
+Let $X$ be a $G$-space and $x\in X^G$. Let $Y_x$ be the presheaf on the orbit category sending $H$ to the connected
+component containing $x\in X^H$. Then, the \term[G-connected components@$G$-connected components]{$G$-connected
+component} of $x$ is $\Phi(Y_x)$.
+\end{defn}
+The third useful application is defining Eilenberg-Mac Lane spaces. This will lead us to cohomology (and then to
+Smith theory and other things).\index{Eilenberg-Mac Lane space}
+\begin{rem}
+Another application of Elmendorf's theorem, which we will not discuss in detail (unless we get to the slice
+filtration), is Postnikov towers. They're constructed in the same way, by either using the small object argument or
+killing homotopy groups.\index{Postnikov tower}\index{small object argument}
+\end{rem}

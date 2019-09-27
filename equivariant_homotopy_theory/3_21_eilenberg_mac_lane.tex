@@ -1,0 +1,161 @@
+\begin{quote}\textit{
+	``The large print giveth and the small print taketh away.''
+}\end{quote}
+The goal in this section is to construct Eilenberg-Mac Lane spectra:\index{equivariant Eilenberg-Mac Lane spectrum}
+if $\underline M$ is a Mackey functor,\index{Mackey functor} we'll produce a $G$-spectrum $H\underline M$ which
+represents ordinary cohomology with coefficients in $\underline M$.  This will take some work, but will have some
+nice payoffs. In subsequent sections, we'll run some computations: for $G = C_2$, we'll compute the $\RO(G)$-graded
+cohomology $H_{C_2}(*;\underline\Z)$ and $H_{C_2}(*;A)$, where $\underline\Z$ is the constant $\Z$-valued Mackey
+functor and $A$ is the Burnside Mackey functor (\cref{Mackeyexm}).
+
+In the previous section, we proved Brown representability (\cref{brown_rep}) for triangulated categories, which are
+stable. We also want an unstable variant.
+\begin{thm}[Unstable Brown representability]
+\index{Brown representability!for based $G$-connected $G$-CW complexes}
+Let $\fC$ denote the category of based, $G$-connected $G$-CW complexes and $H\colon \Ho(\fC)\op\to\Set$ be a
+functor such that
+\begin{enumerate}
+	\item $H$ satisfies the wedge axioms, and
+	\item $H$ takes homotopy pushouts to (weak) pullbacks.
+\end{enumerate}
+Then, $H$ is represented, and the converse is true.
+\end{thm}
+Though we stated this theorem for $H$ going to $\Set$, it turns out all such functors factor through the forgetful
+functor $\Ab\to\Set$, and therefore can be taken to be $\Ab$-valued.
+\begin{warn}
+The basepoint and connectivity hypotheses are important: Brown representability does not hold in the unstable case
+if you fail to impose those requirements.
+\end{warn}
+We can use Brown representability to prove the following result.
+\begin{prop}
+Any $\RO(G)$-graded cohomology theory is represented by a $G$-spectrum.\index{RO(G)-graded cohomology
+theory@$\RO(G)$-graded cohomology theory}
+\end{prop}
+\begin{proof}
+Let $E$ be an $\RO(G)$-graded cohomology theory. We can apply Brown representability to $E_G^V(\bl)$ for each $V$,
+and the identification $E_G^V(\Sigma^W X)\cong E_G^{V\oplus W}(X)$ gives rise to a homotopy class of structure maps
+on representing objects, but there's a coherence issue: we constructed $G$-spectra with actual structure maps, not
+homotopy classes of maps.
+
+The usual way to solve this is with a trick: restrict attention to a cofinal indexing sequence $V_n\inj V_{n+1}\inj
+V_{n+2}\inj\dots$, and then observe that the homotopy theory of $G$-prespectra on this sequence is equivalent to
+$\Ho(\Spc^G)$, which is guaranteed by cofinality: limits are preserved, and the homotopy groups are the same. This
+fixes the coherence problem: we can pick a representative for each map and force transitivity. Then, we can left
+Kan extend back to an orthogonal $G$-spectrum.\index{Kan extension}
+\end{proof}
+This would be an exercise, except that maybe it's a bit too hard to be one.
+\begin{ques}
+Can we build an object of $\Spc^G$ directly? It would be nice not to worry about prespectra on a cofinal sequence.
+
+There are different ways to think about doing this. One approach goes through the model of the $G$-stable category
+as spectral presheaves.
+\end{ques}
+This provides the connection between cohomology theories on $G$-spaces and $G$-spectra, just like in the
+nonequivariant world. They're almost the same, except for the existence of phantom maps,\footnote{A
+\footterm{phantom map} is a nonzero morphism between spectra that's not detected by any compact object. In
+particular, this means that as a natural transformation of cohomology theories, it's $0$, but arises from a nonzero
+morphism. These encode the non-uniqueness of Brown representability.} just like in the nonequivariant case. These
+are poorly understood, but of course we also want to understand them better in the nonequivariant case.
+\begin{cor}
+\label{ZtoROG}
+A $\Z$-graded cohomology theory on $\Spc^G$ is represented by an object of $\Spc^G$.\index{Z-graded cohomology
+theory@$\Z$-graded cohomology theory!for $G$-spectra}
+\end{cor}
+The proof is that $\Sigma^V$ and $\Omega^V$ are inverse equivalences in $\Ho(\Spc^G)$, so we can use them to extend
+to $\RO(G)$-graded theories. \Cref{ZtoROG} feels like a weird coincidence, but it's a key technical result that
+we'll use more than once. The unstable case is different, though.
+\begin{cor}
+\label{unstZtoR}
+A $\Z$-graded cohomology theory on $G\Top$ with coefficients in a coefficient system $M$ extends to an
+$\RO(G)$-graded theory iff $M$ extends to (the contravariant part of) a Mackey functor.\index{Z-graded cohomology
+theory@$\Z$-graded cohomology theory!for $G$-spaces}
+\end{cor}
+Now we can build Eilenberg-Mac Lane spectra for a Mackey functor $\underline M$. There will be two constructions:
+one may be more satisfying. You might hope to use obstruction theory to build Eilenberg-Mac Lane spaces and chain
+them together, but this is a mess. We'll adopt one unfamiliar-looking approach, which always works, and also see a
+more familiar one.
+\begin{cons}
+Given $\underline M$, we'll construct a $\Z$-graded cohomology theory on $\Spc^G$; by \cref{unstZtoR}, this is
+represented by an object of $\Spc^G$, which will be $H\underline M$.
+
+Let $X$ be a $G$-CW complex, and define $\underline C_n(X)\coloneqq \underline\pi_n(X_n/X_{n-1})$ (where $X_n$ is
+the $n$-skeleton of $X$). Now we'll replicate the construction of Bredon cohomology;\index{Bredon cohomology} in
+particular, the long exact sequence for the triple $(X_n, X_{n-1}, X_{n-2})$ induces a differential $\underline
+C_n(X)\to\underline C_{n-1}(X)$. If $\cat{Mac}$ denotes the category of Mackey functors, consider the cochain
+complex\index{Mackey functor}
+\[\Hom_{\cat{Mac}}(\underline C_n(X), \underline M),\]
+and take the cohomology of this cochain complex.
+
+This is represented by an \term{Eilenberg-Mac Lane spectrum} $H\underline M\in\Spc^G$, and one can calculate that
+\[\pi_k^H(H\underline M) = \begin{cases}
+	0, &k\ne 0\\
+	\underline M(G/H), &k = 0.
+\end{cases}\]
+From this perspective, it's easy to show that $H$ is functorial, which is nice. But you might wonder if it's
+symmetric monoidal: in the nonequivariant case, $H(R\otimes S)\simeq HR\wedge HS$. This is false, and is one of
+the unfortunate things about the equivariant setting.
+\end{cons}
+Though the cohomology theory $H\underline M$ represents is explicit, the spectrum itself is not. Brown's original
+proof of Brown representability \cite{Brown} looks a lot like Postnikov induction, which closely resembles one
+classical construction of nonequivariant Eilenberg-Mac Lane spaces, which suggests a more explicit approach is
+possible.
+\begin{cons}
+\label{EMcons}
+One can build some Eilenberg-Mac Lane spectra via the equivariant Dold-Thom construction; this approach only works
+in certain settings (we'll say which ones in a bit), but is interesting enough to mention.\index{Dold-Thom
+construction}
+
+First let's discuss the nonequivariant case. Let $\Sp^\infty\colon\Top_*\to\cat{TopCMon}$ be the free functor from
+based spaces to topological abelian monoids (i.e.\ adjoint to the forgetful functor). The proof of Dold-Thom
+amounts to checking that $\Sp^\infty$ is a fibrant $\sW$-space, which means checking that it takes homotopy
+pushouts to homotopy pullbacks. We can identify this with $H\Z$.
+
+We'll now introduce the \term{McCord construction}. McCord's original paper~\cite{McCord} is a good reference. Nick
+Kuhn has a talent for clarifying constructions and finding cool uses for them, and his paper~\cite{KuhnMcCord} on
+the McCord construction is also great.
+
+Let $A$ be an abelian group and $X$ be a based space. Let $A\otimes X$ denote the free abelian topological monoid
+on pairs $(a,x)$, written $x^a$, subject to the relations
+\begin{enumerate}
+	\item $*^a = *$,
+	\item $x^0 = *$, and
+	\item $x^ax^b = x^{a+b}$.
+\end{enumerate}
+That is, $Y$ inherits the quotient topology from the free abelian topological monoid.
+\begin{rem}
+The McCord construction can be carried out very generally, e.g.\ Kuhn~\cite{KuhnMcCord} uses a closely related
+model to analyze the categorical tensor product in ring spectra.
+\end{rem}
+One can prove a version of the Dold-Thom theorem that implies that $\set{A\otimes\bl}$ is a model for $HA$. This is
+a $\sW$-space, and we can think of this as $\set{A\otimes S^n}$. There's also a $\Gamma$-space $\underline n\mapsto
+\underline n\otimes A$, and one can check this is fibrant, i.e.\ very special.
+
+In our case, suppose $M$ is a $\Z[G]$-module, and that $G$ is finite. We can extract a Mackey functor $\underline
+M(G/H)\coloneqq M^H$, where the transfer $\Tr_H^K$ sends
+\[x\mapsto \sum_{hH\in K/H} hx.\]
+You can check this is a Mackey functor. The equivariant McCord construction produces Eilenberg-Mac Lane spectra for
+the Mackey functors that arise in this way; see dos Santos~\cite{dosSantos}, dos Santos-Nie~\cite{dSN09}, or
+Shimakawa~\cite{Shi89}.
+
+If $A$ is a based $G$-space and $M$ is a $\Z[G]$-module, then $A\otimes M$ is a $G$-space using the diagonal
+$G$-action. What you obtain is an equivariant $\Gamma$-space. We haven't talked much about these, and we won't, but
+they're interesting. Segal's preprint on equivariant $\Gamma$-spaces \cite{SegalEquivariant} is highly influential
+and widely circulated, but the statement has a mistake (though the proof is correct).
+\begin{ex}
+Find the mistake, and fix it. At this point, you have the background to do so.
+\end{ex}
+\cite{Shi89} wrote up the correction, and~\cite{BlumbergWSpace} answers a related question about equivariant
+$\sW$-spaces.\index{equivariant W-spaces@equivariant $\sW$-spaces}
+\begin{thm}
+\label{EMmodel}
+$\set{S^V\otimes M}$ is a model of $H\underline M$.
+\end{thm}
+So this construction is nice and explicit, but only works when $G$ is finite, and for Mackey functors that arise
+from $\Z[G]$-modules.
+\end{cons}
+Understanding the Dold-Thom construction is equivalent to understanding infinite loop space theory, and for general
+compact Lie groups we understand neither.\index{infinite loop space}
+
+There are a few other approaches to constructing equivariant Eilenberg-Mac Lane spectra: for example,
+Bohmann-Osorno~\cite[\S8]{BO15} and Guillou-May-Merling-Osorno~\cite[\S6.2]{GMMO17} provide two approaches using
+equivariant infinite loop space theory.

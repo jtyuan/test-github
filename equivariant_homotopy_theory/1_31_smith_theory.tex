@@ -1,0 +1,324 @@
+\begin{quote}\textit{
+	``It seems that the people registered for the class and the people showing up for class are disjoint.''
+}\end{quote}
+Smith theory is an example application of Bredon cohomology. This theorem is very old, from the 1940s, so none of
+the cohomology in the statement is equivariant.
+\begin{thm}[Smith]
+\label{smith}
+\index{Smith's theorem}
+Let $G$ be a finite $p$-group and $X$ be a finite $G$-CW complex such that (the underlying topological space of)
+$X$ is an $\F_p$-cohomology sphere.\footnote{A space $X$ is an \term*{$\F_p$-cohomology sphere}\index{Fp-cohomology
+sphere@$\F_p$-cohomology sphere} if there is an isomorphism of graded abelian groups $H^*(X;\F_p)\cong
+H^*(S^n;\F_p)$ for some $n$.} Then, $X^G$ is either empty or an $\F_p$-cohomology sphere of smaller dimension.
+\end{thm}
+There are sharper statements, but we can prove this one. It's the start of a long program to understand $H_*(X^G)$
+using algebraic data calculated from $X$ and the action of $G$ on $X$. One useful tool in this is the
+\term{Borel construction} (well, \emph a Borel construction) $EG\times_G X$ (where this is the usual balanced
+product, not a pullback). This is a ``fattened up'' version of $X/G$.\index{balanced product}
+\begin{defn}
+The \term{Borel cohomology} of $X$ is $H_G^*(X) \coloneqq H^*(EG\times_G X)$.
+\end{defn}
+\begin{warn}
+This notation is potentially confusing. Outside of the field of equivariant homotopy theory, ``equivariant
+cohomology'' generally means Borel cohomology, not Bredon cohomology. In equivariant homotopy theory, $H_G^*$ can
+be used to denote both. We will always make the coefficient system for Bredon cohomology explicit, so that
+$H_G^*(X)$ unambiguously refers to Borel cohomology, as is standard in the literature.\footnote{The nLab uses a
+different convention: Borel cohomology is $H_G^*(X;A)$, and Bredon cohomology is $\mathbf H^*(X_G)$.}
+\end{warn}
+The finiteness in \cref{smith} is key: Elmendorf's theorem lets us build a $C_p$-complex with non-equivariant
+homotopy type $S^n$ and any set of fixed points. Thus, in the infinite-dimensional case, we should be looking at a
+different thing than the fixed points, namely the homotopy fixed points.\index{Elmendorf's theorem}
+\begin{defn}
+The \term[homotopy fixed points!of a $G$-space]{homotopy fixed points} of a $G$-space $X$ is $X^{hG}\coloneqq
+\Map(EG, X)^G$.
+\end{defn}
+This can also be defined as a homotopy limit. This is ``easy'' to compute (relative to the rest of equivariant
+homotopy theory, that is), as there are spectral sequences, nice models for $EG$, and other tools.
+
+The terminal map $EG\to *$ induces a map $X^G\to X^{hG}$. The Sullivan conjecture is all about when this happens:
+when you $p$-complete, things become really nice. (There will be a precise statement next lecture.)\index{Sullivan
+conjecture}
+
+Returning to \cref{smith}, we can use Bredon cohomology to give an easy, modern proof. The idea is to adroitly
+choose coefficient systems such that we recover $H^n(X)$, $H^n(X^G)$, and $H^n((X/G)/G)$ from Bredon cohomology.
+They'll fit into exact sequences, and using tools like Mayer-Vietoris, we'll get inequalities on the ranks of
+groups. This will also use the fact that a short exact sequence of coefficient systems induces a long exact
+sequence on $H_G^*$. The proof will be beautiful and short, unlike Smith's original proof!\index{Bredon cohomology}
+
+\Cref{smith} is sufficiently classical that there are several different proofs. Ours illuminates Bredon cohomology
+at the expense of obscuring the overarching goal of Smith theory. We'll try to be consistent with the notation
+in~\cite{MaySmithTheory, AlaskaNotes}. We'll also discuss another proof by Dwyer and Wilkerson in ``Smith theory
+revisited'' \cite{SmithRevisit}, a short, beautiful paper which is highly recommended. It uses the unstable
+Steenrod algebra to prove \cref{smith} and more.
+\begin{proof}[Proof of \cref{smith}]
+First, we can quickly reduce to the case where $G = \Z/p$: if $H\subset G$ is a normal subgroup, then $X^G\cong
+(X^H)^{G/H}$, so you can induct on the order of the group using the Sylow theorems. Thus, we will assume $G =
+\Z/p$, whose orbit category is simple:\index{orbit category!of $C_p$}
+\[\xymatrix{
+	\bullet\ar@(ul, ur)^g\ar[d]\\
+	\bullet
+}\]
+There is a cofiber sequence
+\[\xymatrix{
+	X_+^G\ar[r] & X_+\ar[r] & X/X^G,
+}\]
+which is not particularly deep. We're going to construct three special coefficient systems $L$, $M$, and $N$ such
+that
+\begin{align*}
+	H_G^*(X;L) &\cong \wH^*((X/X^G)/G; \F_p)\\
+	H_G^*(X;M) &\cong H^*(X;\F_p)\\
+	H_G^*(X;N) &\cong H^*(X^G;\F_p).
+\end{align*}
+These will fit into exact sequences which will imply the inequalities we wanted.\footnote{{\color{red}TODO}: $M$ is
+$H^0$ applied to some spaces and map. What are they?}
+
+How do we construct custom coefficient systems? Since these constructions commute with colimits, it suffices to
+determine them via computation at $n = 0$ and $X = G/H$ for subgroups $H\subset G$, meaning just $e$ and $G$.
+
+For $L$, we want to recover $\wH^0((X/X^G)/G;\F_p)$ for $X = G/e$ and $X = G/G$.
+\begin{itemize}
+	\item For $X = G/e$, we want $\wH^0((G/\varnothing)/G;\F_p)\cong \wH^0(G_+/G)\cong\F_p$.
+	\item For $X = G/G$, we get $\wH^0((*/*)/G;\F_p) = 0$.
+\end{itemize}
+So we conclude $L(G/e) = \F_p$ and $L(G/G) = 0$.
+
+For $M$, a similar calculation shows we need $H^0(G/e)\cong\F_p[G]$\footnote{Here, $\F_p[G]$ is the \footterm{group
+ring}, the $\F_p$-algebra of functions $G\to\F_p$ with addition taken pointwise and multiplication determined by
+requiring $\delta_g\cdot\delta_h = \delta_{gh}$, where $\delta_g$ is a delta function, equal to $1$ at $g$ and $0$
+elsewhere.} and $H^0(G/G) = \F_p$, and for $N$, we need $N(G/e) = 0$ and $N(G/G)\cong\F_p$.
+\begin{rem}
+Almost everything in this proof generalizes; we will only need $X$ to be an $\F_p$-cohomology sphere in order to
+know dimensions of a few things. But this technique of customized coefficient systems can be used elsewhere.
+\end{rem}
+Let $I$ denote the \term{augmentation ideal} of $\F_p[G]$, i.e. the kernel of the map $\F_p[G]\to\F_p$ sending all
+$g\mapsto 1$. We will let $I^n$ refer to the coefficient system which assigns $I^n$ to $G/e$ and $0$ to $G/G$.
+
+As coefficient systems, $M/I\cong\F_p$, and therefore there is a short exact sequence of coefficient systems
+\[\shortexact{I}{M}{N\oplus L}.\]
+This implies a long exact sequence in Bredon cohomology:
+\[\xymatrix{
+	\dotsb\ar[r] & H_G^q(X;I)\ar[r] & H_G^q(X;M)\ar[r] & H_G^q(X;N\oplus L)\ar[r] & H_G^{q+1}(X;I)\ar[r] & \dotsb
+}\]
+Exactness at $H^q(X;N\oplus L)$ implies
+\[\rank H_G^q(X;N) + \rank H_G^q(X;L) \le \rank H_G^q(X;M) + \rank H_G^{q+1}(X;I).\]
+That is,
+\begin{equation}
+\label{1st_smith_ineq}
+\rank H^q(X^G;\F_p) + \rank\wH^q((X/X^G)/G;\F_p) \le \rank H^q(X;\F_p) + \rank H_G^{q+1}(X;I).
+\end{equation}
+We'll use this to strongly constrain $\rank H^q(X^G;\F_p)$, but first we need another inequality coming from
+another exact sequence. Namely, the following sequence of coefficient systems is exact:
+\[\shortexact{L}{M}{I\oplus N}.\]
+This is because $I^p = 0$ and for $0\le n\le p-1$, $I^n/I^{n+1}\cong\F_p$. In particular, $I^{p-1}\cong\F_p\cong
+L$, so we can think of $M/L$ as $M/I^{p-1}$. Now we play the same game: the induced long exact sequence is
+\[\xymatrix{
+	\dotsb\ar[r] & H_G^q(X;L)\ar[r] & H_G^q(X;M)\ar[r] & H_G^q(X;I\oplus N)\ar[r] & H_G^{q+1}(X;L)\ar[r] & \dotsb
+}\]
+which implies
+\[\rank H_G^q(X;N) + \rank H_G^q(X;I) \le \rank H_G^q(X;M) + \rank H_G^{q+1}(X;L),\]
+i.e.
+\begin{equation}
+\label{2nd_smith_ineq}
+\rank H^q(X^G;\F_p) + \rank H_G^q(X;I) \le \rank H^q(X;\F_p) + \rank H^{q+1}((X/X^G)/G;\F_p).
+\end{equation}
+Let's use this to prove
+\begin{equation}
+\label{3rd_smith_ineq}
+\rank \wH^q((X/X^G)/G;\F_p) + \sum_{i=q}^{q+r} \rank H^i(X^G;\F_p) \le \rank\wH^{q+r+1} + \sum_{i=q}^{q+r}\rank
+H^i(X;\F_p).
+\end{equation}
+Let
+\begin{align*}
+	a_q &\coloneqq \rank H^q(X^G;\F_p)\\
+	b_q &\coloneqq \rank H^q(X;\F_p)\\
+	c_q &\coloneqq \rank H^q((X/X^G)/G;\F_p)\\
+	d_q &\coloneqq \rank H_G^q(X;I).
+\end{align*}
+Then, \eqref{1st_smith_ineq} and~\eqref{2nd_smith_ineq} say
+\[a_q + c_q\le b_q + d_{q+1}\qquad\text{and}\qquad a_q + d_q \le b_q + c_{q+1}.\]
+Now, adding~\eqref{1st_smith_ineq} for $q$ even and~\eqref{2nd_smith_ineq} for $q$ odd
+proves~\eqref{3rd_smith_ineq}.
+% TODO: I did not follow this in class!
+
+When $q = 0$ and $r$ is large, the finite-dimensionality of $X$ implies that
+\begin{equation}
+\label{interesting_bound}
+\sum_i\rank H^i(X^G;\F_p) \le \sum_i \rank H^i(X;\F_p).
+\end{equation}
+This is already an interesting bound, especially relative to the amount of work we've put in.
+
+Specializing to $X$ an $\F_p$-cohomology sphere,~\eqref{interesting_bound} means
+\[\sum_i \rank H^i(X^G;\F_p) \le 2.\]
+We want to show this sum isn't $1$ (so that we get the cohomology of a sphere) and that the top nonzero rank is at
+most $n$. We will do this with another short exact sequence of coefficient systems:
+\[\shortexact{I^{n+1}}{I^n}{L}.\]
+From this, we get another long exact sequence. Applying the Euler characteristic, we obtain that\index{Euler
+characteristic}
+\begin{equation}
+\label{euler_char_ineq}
+\chi(X) = \chi(X^G) + p\widetilde\chi((X/X^G)/G).
+\end{equation}
+Here
+\[\widetilde\chi(Y)\coloneqq \sum_i (-1)^i\rank \wH^i(Y)\]
+is the \term{reduced Euler characteristic}.
+
+Equation~\eqref{euler_char_ineq} already implies that $\chi(X) \equiv \chi(X^G)\bmod p$, so $\sum\rank
+H^*(X^G;\F_p)\ne 1$ in our case.
+\begin{comp}{ex}{enumerate}
+	\item Think about choices of $q$ and $r$ that allow you to deduce $m\le n$, finishing the proof.
+	\item Small changes need to be made to this argument when $p = 2$; what are they?\qedhere
+\end{comp}
+\end{proof}
+This is an appealing proof: some fairly simple calculations and a dash of formal theory very effectively led to the
+result. We'll give another proof with different advantages and disadvantages.
+
+Smith theory naturally leads to questions about how to recover $H^*(X^G)$ algebraically from some equivariant
+cohomology theory on $X$. For example, we could ask about Borel cohomology $H_G^*(X) \coloneqq H^*(EG\times_G X)$,
+where $EG$ is a free $G$-space that's nonequivariantly contractible (which is simple to construct with the bar
+construction or through Elmendorf's theorem).\index{Elmendorf's theorem}\index{Borel cohomology}
+
+\emph{In the following, all cohomology is understood to have coefficients in $\F_p$.} Recall that the Bredon
+cohomology of $X$ is defined to be $H_G^*(X)\coloneqq H^*(EG\times_G X)$. For a subgroup $H\subset G$, let
+$S_H\subset H^*(BG)$ be the multiplicative set generated by the classes in $H^2(BG)$ that are images of the
+Bockstein homomorphism $H^1(BG)\to H^2(BG)$ of the elements that are nontrivial in $H^1(BH)$. This uses the fact
+that Borel cohomology is an $H^*(BG)$-module: $H^*(EG\times_G *) \cong H^*(EG/G) = H^*(BG)$, and using the terminal
+map $X\to *$ we get a map $H^*(BG)\to H^*(EG\times_G X)$.
+\begin{thm}
+\label{localization}
+Let $G$ be a finite $p$-group and $H\subset G$ be a subgroup. Then, there is an isomorphism
+$S_H^{-1}H_G^*(X)\isom S_H^{-1}H_G^*(X^H)$.
+\end{thm}
+
+There's a rich theory of unstable modules over the Steenrod algebra $\mathcal A_p$, which could fill a whole
+semester. There's a functor $\Un$ which produces unstable $\mathcal A_p$-modules, in a sense by only keeping the
+unstable part.\index{unstable cohomology operations}\index{Steenrod algebra}
+\begin{thm}[{Dwyer-Wilkerson~\cite{SmithRevisit}}]
+\[H^*(X^G) \cong \F_p\otimes_{H^*(BG)} \Un(S_G^{-1}H^*(EG\times_G X)).\]
+\end{thm}
+The proof uses arguments that were hard to think of, but easy to follow.
+
+We'll use these theorems to prove Smith's theorem using the Serre spectral sequence for\index{Serre spectral
+sequence}
+\[\xymatrix{
+	X\ar[r] & EG\times_G X\ar[r] & BG.
+}\]
+This will be the nicest kind of spectral sequence argument: everything degenerates.
+
+\Cref{localization} is an example of a general class of \term[localization theorem]{localization theorems} in
+equivariant cohomology. In these theorems, one considers the fiber sequence $X_+^G\to X_+\to X/X^G$, and wants to
+show that for some functor $E$, $E(X_+^G)\cong E(X_+)$. This boils down to showing $E(X/X^G)$ vanishes, which will
+always follow from showing that $E$ vanishes on $G$-spaces whose $G$-actions are free away from the basepoint. In
+general, this will reduce to considering cells, so one considers $E(G/H_+\wedge \bigvee_\alpha S^{q_\alpha})$ for
+some wedge of spheres.
+
+In our case, $E(G/H_+\wedge \bigvee_\alpha S^{q_\alpha})$ is
+\[S_H^{-1} H_G^*\paren{G/H_+\wedge\bigvee_\alpha S^{q_\alpha}} = S_H^{-1} H^*\paren{EG\times_G
+\paren{G/H_+\wedge\bigvee_\alpha S^{q_\alpha}}}\]
+Now, the term $EG\times_G G/H\cong EG/H\cong BH$, so we have a piece that looks like $H^*(BH)$, which is how $BH$
+inserts itself into the argument.
+\begin{ex}
+Finish the Serre spectral sequence proof of \cref{smith}. Hint: there's a simple geometric reason why the
+spectral sequence collapses, which is what makes this whole thing go.
+\end{ex}
+Recall that the Borel cohomology $H^*(EG\times_G X)$ is an $H^*(BG)$-module, through the map $EG\times_G X\to
+EG\times_G * = BG$. Thus, we should compute $H^*(BG)$ as a ring. In the case we care about, $G = (\Z/p)^n$; let's
+start with $n = 1$.
+
+There's a nice geometric model for $B\Z/p$ as an ``infinite-dimensional lens space:'' let $S^\infty$ denote the
+unit sphere in an infinite-dimensional complex Hilbert space,\footnote{Alternatively, you could choose $S^\infty$
+to be the colimit of $S^n$ for all $n$, through the inclusion $S^n\inj S^{n+1}$ at the equator. These two choices
+are not homeomorphic, but produce homotopy equivalent models of $B\Z/p$.} and give it a $C_p$-action by $z\mapsto
+e^{2\pi i/p}z$. Then, the infinite-dimensional lens space is $S^\infty/C_p$.\index{classifying space!for $C_p$}
+
+The quotient $S^\infty\surj S^\infty/C_p$ is a covering map, and $S^\infty$ is contractible. The proof goes through
+some version of the Eilenberg swindle:\index{Eilenberg swindle}
+\begin{itemize}
+	\item There is a homotopy from $\id_{S^\infty}$ to $s: (x_1,x_2,\dotsc)\mapsto (0, x_1, x_2, \dotsc)$. In fact,
+	it's a straight-line homotopy.
+	\item There is a straight-line homotopy from $s$ to $(0,x_1,\dotsc)\mapsto (1, 0, 0,\dotsc)$.
+\end{itemize}
+Thus $S^\infty/C_p$ is the quotient of a contractible space by a free $G$-action, so it deserves to be called
+$B\Z/p$.
+
+You can set up a cell structure on $B\Z/p$ as with finite-dimensional lens spaces, and therefore compute that
+\[H^k(B\Z/p) \cong\begin{cases}
+	\Z/p, &k\text{ even}\\
+	0, &k\text{ odd.}
+\end{cases}\]
+Using the universal coefficient theorem, you can then deduce that\index{universal coefficient theorem}
+\[H^k(B\Z/p;\Z/p) \cong \Z/p\]
+for all $k$. Now we want to deduce the ring structure.
+
+Recall that if
+\[\shortexact{M}{L}{N}{}\]
+is a short exact sequence, it induces a long exact sequence in cohomology:
+\[\xymatrix{
+	\dotsb\ar[r] & H^k(\bl;M)\ar[r] &H^k(\bl;L)\ar[r] &H^k(\bl;N)\ar[r]^\beta &H^{k+1}(\bl;M)\ar[r] & \dotsb
+}\]
+Let's apply this to the short exact sequences
+\[\xymatrix{
+	0\ar[r] & \Z\ar[r]^{\cdot p}\ar[d]&\Z\ar[r]\ar[d] & \Z/p\ar[r]\ar[d] &0\\
+	0\ar[r] & \Z/p\ar[r]^{\cdot p} &\Z/p^2\ar[r] & \Z/p\ar[r] &0.
+}\]
+This is a map of short exact sequences, inducing a map of their long exact sequences.
+\begin{equation}
+\gathxy{
+	\dotsb\ar[r] & H^q(X;\Z)\ar[r]\ar[d] & H^q(X;\Z)\ar[r]\ar[d] & H^q(X;\Z/p)\ar[r]\ar[d] &
+	H^{q+1}(X;\Z)\ar[r]\ar[d] &
+	\dotsb\\
+	\dotsb\ar[r] & H^q(X;\Z/p)\ar[r] & H^q(X;\Z/p^2)\ar[r] & H^q*(X;\Z/p)\ar[r]^\beta &H^{q+1}(X;\Z/p)\ar[r] &
+	\dotsb
+}
+\end{equation}
+The map $\beta:H^q(X;\Z/p)\to H^{q+1}(X;\Z/p)$ will be called the \term{Bockstein homomorphism}, and is a simple
+example of a cohomology operation.
+
+We now assume $p$ is odd.
+\begin{lem}
+If $n$ is odd, the Bockstein for $B\Z/p$ is an isomorphism; if $n$ is even, it's $0$.
+\end{lem}
+\begin{proof}
+First, observe that the diagram
+\[\xymatrix{
+	H^n(B\Z/p;\Z)\ar[r]^f & H^n(B\Z/p;\Z/p)\ar[r]^g\ar[dr]_\beta & H^{n+1}(B\Z/p;\Z)\ar[d]^\pi\ar[r] &
+	H^{n+1}(B\Z/p;\Z)\\
+	&& H^{n+1}(B\Z/p;\Z/p)
+}\]
+commutes, and the top row is exact.
+\begin{itemize}
+	\item If $n$ is even, $f$ is an isomorphism, so $g = 0$, so $\beta = 0$.
+	\item if $n$ is odd, $g$ and $\pi$ are surjections, so $\beta$ is a surjection between two $\F_p$-vector spaces
+	of the same rank, so $\beta$ is an isomorphism.\qedhere
+\end{itemize}
+\end{proof}
+Next, a nice way to compute the cup product. The map $B\Z/p\to\CP^\infty$ is cellular, and is a homeomorphism when
+restricted to even-dimensional cells. As the cell structure determines the cup product structure, the cup products
+on $H^{\text{even}}(B\Z/p;\Z/p)$ and $H^{\text{even}}(\CP^\infty;B\Z/p)\cong \Z/p[y_1]$ agree.\footnote{By
+$\CP^\infty$, we mean the colimit of $\CP^n$ over all $n$, and similarly for $\RP^\infty$. However, there are
+models for them based on the unit sphere in an infinite-dimensional Hilbert space modulo an $S^1$ (resp.\ $\Z/2$)
+action. These are homotopic to, but not homeomorphic to, the colimit realizations of $\CP^\infty$ and $\RP^\infty$.
+} On the odd-dimensional cells, the cup product is graded commutative rather than strictly commutative, so we get
+an exterior algebra. Therefore we conclude that
+\[H^*(B\Z/p;\Z/p)\cong \Lambda(x_1)\otimes \Z/p[y_1],\]
+where $\abs{x_1} = 1$, $\abs{y_1} = 2$, and $\beta x_1 = y_1$.
+
+By essentially the same argument, one can compute the cohomology ring for $B(\Z/p)^n$.
+\begin{prop}
+As rings, there is an isomorphism
+\[H^*(B(\Z/p)^n; \Z/p) \cong \Lambda(x_1,\dotsc,x_n)\otimes\Z/p[y_1,\dotsc,y_n],\]
+where $\beta x_i = y_i$.
+\end{prop}
+\begin{ex}
+Figure out the slight changes needed for $p = 2$.
+\end{ex}
+Recall that the localization theorem asserted that if $G$ is a finite $p$-group, $S_H^{-1}H^*(EG\times_G
+X)\cong S_H^{-1}H^*(EG\times_G X^G)$, where $S$ is the multiplicative system generated by images of the Bockstein
+homomorphism in $H^*(BG;\Z/p)$. We'll prove this in the case when $G$ is abelian.
+
+We mentioned above that it's possible to inductively reduce to considering $H^*(BH)\otimes H^*\paren{\bigvee
+S^{q_i}}$. It's now clear\footnote{{\color{red}TODO}: I didn't follow this proof in class.} that something in $S$
+restricts to $0$ in $H^*(BH)$, completing the proof (in the abelian case).
+
+The localization fails terribly for infinite nonabelian compact Lie groups $G$. For example, for any topological
+space $K$, there exists a $G$-CW complex $X$ such that $X$ is nonequivariantly contractible, $X$ is
+finite-dimensional, and $X^G\simeq K$.
